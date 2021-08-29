@@ -22,7 +22,7 @@
                                             @include('admin.layouts.errors')
 
 
-                                            <form action="/adminpanel/categories/store" method="post">
+                                            <form action="/adminpanel/categories" method="post">
                                                 @csrf
                                                 <div class="row mb-3">
                                                     <div class="col-md-12 mb-3">
