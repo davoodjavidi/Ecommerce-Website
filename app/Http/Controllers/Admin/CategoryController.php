@@ -34,7 +34,7 @@ class CategoryController extends Controller
             'category_id' =>$request->get('category_id')
         ]);
 
-        return redirect('/adminpanel/categories/list');
+        return redirect('/adminpanel/categories');
     }
 
 
@@ -60,7 +60,7 @@ class CategoryController extends Controller
            'title' => $request->get('title')
         ]);
 
-        return redirect('/adminpanel/categories/list');
+        return redirect('/adminpanel/categories');
     }
 
 
