@@ -1,294 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="نمایشport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bootstrap 4</title>
-    <link rel="stylesheet" href="/admin/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/admin/css/bootstrap-rtl.css">
-    <link rel="stylesheet" href="/admin/css/vazir.css">
-    <link rel="stylesheet" href="/admin/css/style.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="/admin/css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
-<body>
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">مجله آموزشی راکت</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="جستجو" aria-label="Search">
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">خروج</a>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" target="_blank" href="/">Visit Website</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/dashboard/edit">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="#">Activity Log</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+            </ul>
         </li>
     </ul>
 </nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="/adminpanel">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Manage Posts</div>
 
-<div class="container-fluid">
-    <div class="row">
-
-        <main role="main" class="col-md-9 mr-sm-auto col-lg-10 pt-3 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">داشبورد</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group ml-2">
-                        <button class="btn btn-sm btn-outline-secondary">اشتراک گذاری</button>
-                        <button class="btn btn-sm btn-outline-secondary">خروجی گرفتن</button>
+                    {{--  posts --}}
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePosts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Posts
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsePosts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/dashboard/posts/create">Add Post</a>
+                            <a class="nav-link" href="/dashboard/posts/list">list posts</a>
+                        </nav>
                     </div>
-                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                        <span data-feather="calendar"></span>
-                        این هفته
-                    </button>
+                    {{--   end posts--}}
+
+                    {{--categories--}}
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Categories
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{route('categories.create')}}">Add Category</a>
+                            <a class="nav-link" href="{{route('categories.index')}}">Category List</a>
+                        </nav>
+                    </div>
+                    {{--  end categories--}}
+
+
+                    {{--roles--}}
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRoles" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Roles
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseRoles" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/dashboard/roles/create">Add Role</a>
+                            <a class="nav-link" href="/dashboard/roles/list">Role List</a>
+                        </nav>
+                    </div>
+                    {{--  end roles--}}
+
+
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Pages
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                Authentication
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="login.html">Login</a>
+                                    <a class="nav-link" href="register.html">Register</a>
+                                    <a class="nav-link" href="password.html">Forgot Password</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                Error
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="401.html">401 Page</a>
+                                    <a class="nav-link" href="404.html">404 Page</a>
+                                    <a class="nav-link" href="500.html">500 Page</a>
+                                </nav>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="sb-sidenav-menu-heading">Addons</div>
+                    <a class="nav-link" href="charts.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        Charts
+                    </a>
+                    <a class="nav-link" href="tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Tables
+                    </a>
                 </div>
             </div>
-
-            <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-
-            <h2 class="mb-4">بخش محصولات</h2>
-            <div class="table-responsive">
-                <table class="table table-striped ">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>عنوان</th>
-                        <th>عنوان</th>
-                        <th>عنوان</th>
-                        <th>عنوان</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1,001</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,002</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,003</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,004</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,005</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,006</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,007</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,008</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,009</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,010</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,011</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,012</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,013</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,014</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    <tr>
-                        <td>1,015</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                        <td>محصول</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            داشبورد
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            سفارشات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            محصولات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            مشتریان
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            گزارشات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            نظرات
-                        </a>
-                    </li>
-                </ul>
-
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>گزارشات ذخیره شده</span>
-                    <a class="d-flex align-items-center text-muted" href="#">
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            این ماه
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            ماه گذشته
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            شبکه های اجتماعی
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            فروش سالانه
-                        </a>
-                    </li>
-                </ul>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                Davood javidi
             </div>
         </nav>
+    </div>
+    <div id="layoutSidenav_content">
 
+
+        <div style="direction: rtl">
+        @yield('content')
+        </div>
+
+
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="js/holder.min.js"></script>
-
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-    feather.replace()
-</script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-    var ctx = document.getElementById("myChart");
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ["یکشبنه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"],
-            datasets: [{
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }]
-            },
-            legend: {
-                display: false,
-            }
-        }
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/admin/assets/demo/chart-area-demo.js"></script>
+<script src="/admin/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="/admin/js/datatables-simple-demo.js"></script>
 </body>
 </html>
+
